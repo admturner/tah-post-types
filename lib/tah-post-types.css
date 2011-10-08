@@ -1,3 +1,18 @@
-.tah-lesson-textarea {
+/* 
+Description: A TAH Post Types style file 
+Author: Adam Turner
+Author URI: http://adamturner.org/
+Version: 1.0
+*/
+#editorcontainer #tah_psa_overview, #editorcontainer #tah_psa_analysis, #editorcontainer #tah_psa_discussion, #editorcontainer #tah_background, #editorcontainer #tah_conclusions, #editorcontainer #tah_classroom,
+#editorcontainer #tah_overview, #editorcontainer #tah_objective, #editorcontainer #tah_materials, #editorcontainer #tah_procedure, #editorcontainer #tah_homework, #editorcontainer #tah_assessment, #editorcontainer #tah_differentiate, #editorcontainer #tah_references {
+	border: 0 none; outline: none; padding: 6px;
+	box-sizing: border-box;
+		-moz-box-sizing: border-box; -webkit-box-sizing: border-box; -khtml-box-sizing: border-box;
+	font-family: Consolas, Monaco, monospace; line-height: 150%;	
+	resize: vertical;
+}
+#tah_psa_overview, #tah_psa_analysis, #tah_psa_discussion, #tah_background, #tah_conclusions, #tah_classroom,
+#tah_overview, #tah_objective, #tah_materials, #tah_procedure, #tah_homework, #tah_assessment, #tah_differentiate, #tah_references {
 	width: 100%;
 }
