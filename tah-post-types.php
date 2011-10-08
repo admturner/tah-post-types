@@ -269,7 +269,6 @@ class tah_lessons {
 		wp_nonce_field( 'tahlessonnonce', 'tahlessonnoncespace' );
 		the_editor( $custom['tah_differentiate'][0], 'tah_differentiate' );
 	}
-	
 	function lessons_references_control_fn() {
 		global $post;
 		$custom = get_post_custom($post->ID);

@@ -33,8 +33,6 @@ function tahautolist( $eats, $ul = 1 ) {
 	return $eats;
 }
 
-
-
 /* Maybe creating a search filtering system */
 
 

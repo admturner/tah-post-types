@@ -60,15 +60,60 @@ function tah_lessons_all_sections() {
 }
 
 /**
- * Print only the Overview
+ * Print the Overview
  *
- * @since 0.8.0
+ * @since 0.8.2
  */
-function tah_lessons_the_overview() {
-	if ( ! empty( $post->post_content ) ) { ?>
-		<h3><?php _e('Overview'); ?></h3>
-		<?php the_content();
+function tah_lessons_the_overview( $excerpt = null ) {
+	global $post;
+	if ( ! empty( $post->post_content ) ) {
+		if ( $excerpt == '' ) {
+			the_content();
+		} else {
+			echo tah_lessons_get_the_excerpt( $text );
+		}
 	}
+}
+
+/**
+ * Custom excerpt for TAH Post Types
+ *
+ * Mostly just a raw copy of wp_trim_excerpt($text) from 
+ * wp-includes/formatting.php with our own length added. Needed
+ * to hard-code this into the plugin because built-in function
+ * was adding jibberish characters at the end of the content string
+ * for unknown reason.
+ *
+ * @since 0.8.2
+ *
+ * @param string $text The excerpt. If set to empty an excerpt is generated.
+ * @return string The excerpt.
+ */
+function tah_lessons_get_the_excerpt( $text ) {
+	global $post;
+	
+	$raw_excerpt = $text;
+	
+	if ( '' == $text ) {
+		$text = get_the_content('');
+		
+		$text = strip_shortcodes( $text );
+
+		$text = apply_filters('the_content', $text);
+		$text = str_replace(']]>', ']]&gt;', $text);
+		$text = strip_tags($text);
+		$excerpt_length = apply_filters('excerpt_length', 25);
+		$excerpt_more = apply_filters('excerpt_more', ' ' . '[...]');
+		$words = preg_split("/[\n\r\t ]+/", $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
+		if ( count($words) > $excerpt_length ) {
+			array_pop($words);
+			$text = implode(' ', $words);
+			$text = $text . $excerpt_more;
+		} else {
+			$text = implode(' ', $words);
+		}
+	}	
+	return apply_filters('wp_trim_excerpt', $text, $raw_excerpt);
 }
 
 /**
@@ -91,7 +136,6 @@ function tah_lessons_the_author() {
  * Print only the meta fields
  */
 function tah_lessons_the_meta() {
-	
 	$meta = get_post_custom(); ?>
 	
 	<p><strong><?php _e('Author: '); ?></strong><span property="dc:creator"><?php echo wptexturize( $meta['tah_lesson_author'][0] ); ?></span></p>
